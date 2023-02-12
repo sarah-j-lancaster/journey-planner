@@ -9,8 +9,10 @@ const labelFont = Open_Sans({ weight: "500" });
 
 type DropdownProps = {
   id: string;
+  variant?: string;
   placeholder: string;
-  label: string;
+  label?: string;
+  prefix?: string;
   listItems: string[];
   selectedItem?: string;
   onSelect: (item: string) => void;
@@ -22,13 +24,18 @@ export const Dropdown = ({
   placeholder,
   selectedItem,
   listItems,
+  variant,
+  prefix,
   onSelect,
 }: DropdownProps) => {
   return (
     <>
-      <label className={clsx(labelFont.className, "pb-2")}>{label}</label>
+      {label && (
+        <label className={clsx(labelFont.className, "pb-2")}>{label}</label>
+      )}
       <BootstrapDropdown onSelect={(e) => onSelect(e as string)}>
         <BootstrapDropdown.Toggle
+          variant={variant}
           id={`dropdown-${id}`}
           className={styles.toggle}
         >

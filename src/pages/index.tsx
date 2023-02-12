@@ -12,8 +12,8 @@ import { NextPage } from "next";
 import { getAllTripsForStop, Trip } from "@/services/api/trips";
 import Spinner from "react-bootstrap/Spinner";
 import { Dropdown } from "@/components/Dropdown/Dropdown";
-import { TripCard } from "@/components/TripCard/TripCard";
 import { bookTrip } from "@/services/api/book";
+import { TripCard } from "@/components/TripCard/TripCard";
 
 const headingFont = Shrikhand({ weight: "400", preload: false });
 const bodyFont = Open_Sans({ weight: "400" });
@@ -50,9 +50,7 @@ const Page: NextPage<Props> = ({ stops }) => {
 
   const bookTripWithId = async (id: number) => {
     setBookingIds((prevState) => ({ ...prevState, [id]: "booking" }));
-
     const bookingStatus = await bookTrip(id);
-
     setBookingIds((prevState) => ({ ...prevState, [id]: bookingStatus }));
   };
 
@@ -64,10 +62,10 @@ const Page: NextPage<Props> = ({ stops }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={clsx(styles.main, bodyFont.className)}>
+      <main className={clsx(styles.main, bodyFont.className, "container")}>
         <Image
           src={"/images/public-transport.jpg"}
-          alt={""}
+          alt={"People waiting for a bus"}
           width={250}
           height={160}
           priority
@@ -87,7 +85,7 @@ const Page: NextPage<Props> = ({ stops }) => {
         </div>
         {trips && (
           <>
-            <p>{`Showing trips departing from ${selectedStop}`}</p>
+            <p className="text-center mb-4">{`Showing trips departing from ${selectedStop}`}</p>
             {trips.map((trip) => {
               const status = bookingIds[trip.id] ?? "available";
               return (

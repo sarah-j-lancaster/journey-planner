@@ -1,8 +1,70 @@
 .card {
-  border-radius: 10px;
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "from to "
+    "departing arriving"
+    "box box";
+  column-gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  border-bottom: 2px solid var(--color-blue);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  @media only screen and (min-width: 576px) {
+    grid-template-columns: minmax(0, 200px) minmax(0, 200px) minmax(0, 150px);
+
+    grid-template-areas:
+      "from to box"
+      "departing arriving box";
+  }
 }
 
 .label {
   font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.location {
+  font-weight: bold;
+}
+
+.to {
+  grid-area: to;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.from {
+  grid-area: from;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.departing {
+  grid-area: departing;
+}
+
+.arriving {
+  grid-area: arriving;
+}
+
+.time {
+  display: flex;
+  flex-direction: column;
+}
+
+.box {
+  grid-area: box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media only screen and (min-width: 576px) {
+    justify-content: flex-end;
+  }
+}
+
+.button {
+  width: 100%;
+  @media only screen and (min-width: 576px) {
+    width: max-content;
+  }
 }

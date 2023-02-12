@@ -1,6 +1,7 @@
 import { Trip } from "@/services/api/trips";
 import styles from "./trip-card.module.scss";
 import Button from "react-bootstrap/Button";
+import { formatDateString } from "@/utils/utils";
 
 interface TripCardProps extends Trip {
   status: "booking" | "booked" | "available" | "error";
@@ -24,21 +25,55 @@ export const TripCard = ({
   bookTrip,
 }: TripCardProps) => {
   const isDisabled = status === "booked" || status === "booking";
+  const formattedArrival = formatDateString(arrivalTime);
+  const formattedDeparture = formatDateString(departureTime);
+
+  const timeSection = (label: string, date: string, time: string) => (
+    <>
+      <p className={styles.label}>{label}</p>
+      <div className={styles.time}>
+        <span>{date}</span>
+        <span>{time}</span>
+      </div>
+    </>
+  );
+
+  const locationSection = (label: string, location: string) => (
+    <>
+      <p className={styles.label}>{label}</p>
+      <p className={styles.location}>{location}</p>
+    </>
+  );
+
   return (
     <div className={styles.card}>
       <div className={styles.from}>
-        <p className={styles.label}>From:</p>
-        <p>{departureStop}</p>
-        <p>{departureTime}</p>
+        {locationSection("From:", departureStop)}
       </div>
-      <div className={styles.to}>
-        <p className={styles.label}>To:</p>
-        <p>{arrivalStop}</p>
-        <p>{arrivalTime}</p>
+      <div className={styles.departing}>
+        {timeSection(
+          "Departing at",
+          formattedDeparture.date,
+          formattedDeparture.time
+        )}
       </div>
-      <Button disabled={isDisabled} onClick={() => bookTrip(id)}>
-        {labelMap[status]}
-      </Button>
+      <div className={styles.to}>{locationSection("To:", arrivalStop)}</div>
+      <div className={styles.arriving}>
+        {timeSection(
+          "Arriving at",
+          formattedArrival.date,
+          formattedArrival.time
+        )}
+      </div>
+      <div className={styles.box}>
+        <Button
+          disabled={isDisabled}
+          onClick={() => bookTrip(id)}
+          className={styles.button}
+        >
+          {labelMap[status]}
+        </Button>
+      </div>
     </div>
   );
 };
