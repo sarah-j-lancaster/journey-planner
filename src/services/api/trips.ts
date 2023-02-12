@@ -1,10 +1,10 @@
-export type Trip = {
-  id: string;
+export interface Trip {
+  id: number;
   departureStop: string;
   departureTime: string;
   arrivalStop: string;
   arrivalTime: string;
-};
+}
 
 export const getAllTripsForStop = async (stop: string): Promise<Trip[]> => {
   const encodedStop = encodeURI(stop);

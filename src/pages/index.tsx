@@ -1,10 +1,8 @@
 "use client";
 import { Shrikhand } from "@next/font/google";
 import { Open_Sans } from "@next/font/google";
-
 import styles from "../styles/Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Dropdown } from "@/components/Dropdown/dropdown";
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -13,20 +11,29 @@ import Head from "next/head";
 import { NextPage } from "next";
 import { getAllTripsForStop, Trip } from "@/services/api/trips";
 import Spinner from "react-bootstrap/Spinner";
+import { Dropdown } from "@/components/Dropdown/Dropdown";
+import { TripCard } from "@/components/TripCard/TripCard";
+import { bookTrip } from "@/services/api/book";
 
 const headingFont = Shrikhand({ weight: "400", preload: false });
 const bodyFont = Open_Sans({ weight: "400" });
 
-interface Props {
+type Props = {
   stops: string[];
-}
+};
+
+type BookedTrips = { [key: string]: "booking" | "booked" | "error" };
 
 const Page: NextPage<Props> = ({ stops }) => {
   const [selectedStop, setSelectedStop] = useState<string | undefined>();
   const [trips, setTrips] = useState<Trip[] | undefined>();
 
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
+  const [bookingIds, setBookingIds] = useState<BookedTrips>({});
+
+  // style
+  // filter
   useEffect(() => {
     if (selectedStop) {
       const fetchTrips = async () => {
@@ -40,6 +47,14 @@ const Page: NextPage<Props> = ({ stops }) => {
       fetchTrips();
     }
   }, [selectedStop]);
+
+  const bookTripWithId = async (id: number) => {
+    setBookingIds((prevState) => ({ ...prevState, [id]: "booking" }));
+
+    const bookingStatus = await bookTrip(id);
+
+    setBookingIds((prevState) => ({ ...prevState, [id]: bookingStatus }));
+  };
 
   return (
     <>
@@ -73,7 +88,12 @@ const Page: NextPage<Props> = ({ stops }) => {
         {trips && (
           <>
             <p>{`Showing trips departing from ${selectedStop}`}</p>
-            {trips.map((trip) => trip.id)}
+            {trips.map((trip) => {
+              const status = bookingIds[trip.id] ?? "available";
+              return (
+                <TripCard {...trip} status={status} bookTrip={bookTripWithId} />
+              );
+            })}
           </>
         )}
         {isLoading && <Spinner animation="border" role="status" />}
