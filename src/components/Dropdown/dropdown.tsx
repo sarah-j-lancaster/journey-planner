@@ -9,7 +9,6 @@ const labelFont = Open_Sans({ weight: "500" });
 
 type DropdownProps = {
   id: string;
-  variant?: string;
   placeholder: string;
   label: string;
   listItems: string[];

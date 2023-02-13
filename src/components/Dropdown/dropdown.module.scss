@@ -24,6 +24,7 @@
 }
 
 .dropdown-item {
+  color: var(--color-blue);
   &:active {
     background-color: var(--color-medium-blue);
   }

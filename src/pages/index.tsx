@@ -84,7 +84,7 @@ const Home: NextPage<HomeProps> = ({ stops }) => {
           </div>
           {trips && (
             <>
-              <p className="text-center mb-4">{`Showing trips departing from ${selectedStop}`}</p>
+              <p className="text-center mb-4 mb-lg-5">{`Showing trips departing from ${selectedStop}`}</p>
               {trips.map((trip, index) => {
                 const status = bookingIds[trip.id] ?? "available";
                 return (
@@ -98,7 +98,9 @@ const Home: NextPage<HomeProps> = ({ stops }) => {
               })}
             </>
           )}
-          {isLoadingTrips && <Spinner animation="border" role="status" />}
+          {isLoadingTrips && (
+            <Spinner className="mt-3" animation="border" role="status" />
+          )}
         </main>
       </Page>
     </>
