@@ -18,13 +18,7 @@
   &:hover {
     background-color: var(--color-medium-blue);
   }
-  &:active {
-    background-color: var(--color-medium-blue) !important;
-  }
-}
-
-.btn-blue + .show {
-  &:active {
+  &:focus {
     background-color: var(--color-medium-blue) !important;
   }
 }

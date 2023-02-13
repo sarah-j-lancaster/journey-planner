@@ -84,4 +84,9 @@
     color: var(--color-blue);
     opacity: unset;
   }
+  &:active {
+    background-color: white !important;
+    border: 2px solid var(--color-orange) !important;
+    color: var(--color-blue) !important;
+  }
 }
