@@ -2,7 +2,6 @@
 import { Shrikhand } from "@next/font/google";
 import { Open_Sans } from "@next/font/google";
 import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import { bookTrip } from "@/services/api/book";
 import { TripCard } from "@/components/TripCard/TripCard";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Page } from "@/components/Page/Page";
+import Link from "next/link";
 
 const headingFont = Shrikhand({ weight: "400", preload: false });
 const bodyFont = Open_Sans({ weight: "400" });
@@ -104,6 +104,12 @@ const Home: NextPage<HomeProps> = ({ stops }) => {
           {isLoadingTrips && (
             <Spinner className="mt-3" animation="border" role="status" />
           )}
+          <Link
+            href={"/credits"}
+            className={clsx(headingFont.className, styles.link)}
+          >
+            Credits
+          </Link>
         </main>
       </Page>
     </>

@@ -4,8 +4,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 [https://journey-planner.vercel.app/](https://journey-planner.vercel.app/)
 
-[https://www.freepik.com/free-vector/passengers-waiting-public-transport-bus-stop_7732655.htm#query=public%20transportation&position=25&from_view=keyword&track=ais](Image by pch.vector on Freepik)
-
 ## Getting Started
 
 First, run the development server:
@@ -36,5 +34,5 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
   - Button status is updated to error after failed network request and button is clickable
   - Booked state is persisted between stop selection change
 - Better error handling and error pages
-- Set up SASS variables for media queries
+- Set up SASS variables for media queries and proper globals CSS file
 - Make dropdown trigger searchable

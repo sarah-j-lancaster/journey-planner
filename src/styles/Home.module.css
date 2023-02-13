@@ -9,7 +9,15 @@
 }
 
 .heading {
-  color: #263762;
+  color: var(--color-blue);
   font-size: 40px;
   margin-bottom: 24px;
+}
+
+.link {
+  position: absolute;
+  color: var(--color-blue);
+  cursor: pointer;
+  bottom: 0;
+  right: 0;
 }
