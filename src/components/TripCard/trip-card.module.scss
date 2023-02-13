@@ -6,7 +6,7 @@
     "box box";
   column-gap: 16px;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 2px solid var(--color-blue);
+  border-bottom: 2px solid var(--color-orange);
   padding-bottom: 8px;
   margin-bottom: 8px;
   width: 100%;
@@ -52,11 +52,12 @@
 .box {
   grid-area: box;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   padding-top: 8px;
   @media only screen and (min-width: 576px) {
     justify-content: flex-end;
+    align-items: flex-end;
     padding-top: 0px;
   }
 }

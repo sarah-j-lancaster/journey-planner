@@ -14,17 +14,19 @@ import Spinner from "react-bootstrap/Spinner";
 import { Dropdown } from "@/components/Dropdown/Dropdown";
 import { bookTrip } from "@/services/api/book";
 import { TripCard } from "@/components/TripCard/TripCard";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { Page } from "@/components/Page/Page";
 
 const headingFont = Shrikhand({ weight: "400", preload: false });
 const bodyFont = Open_Sans({ weight: "400" });
 
-type PageProps = {
+type HomeProps = {
   stops: string[];
 };
 
 type BookedTrips = { [key: string]: "booking" | "booked" | "error" };
 
-const Page: NextPage<PageProps> = ({ stops }) => {
+const Home: NextPage<HomeProps> = ({ stops }) => {
   const [selectedStop, setSelectedStop] = useState<string | undefined>();
   const [trips, setTrips] = useState<Trip[] | undefined>();
   const [isLoadingTrips, setLoadingTrips] = useState<boolean>(false);
@@ -58,52 +60,54 @@ const Page: NextPage<PageProps> = ({ stops }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={clsx(styles.main, bodyFont.className, "container")}>
-        <Image
-          src={"/images/public-transport.jpg"}
-          alt={"People waiting for a bus"}
-          width={250}
-          height={160}
-          priority
-        />
-        <h1 className={clsx(headingFont.className, styles.heading)}>
-          Trip planner
-        </h1>
-        <div className="mb-3">
-          <Dropdown
-            placeholder="Select your departure stop"
-            listItems={stops}
-            selectedItem={selectedStop}
-            onSelect={setSelectedStop}
-            id={"stops"}
-            label={"Departure stop:"}
+      <Page>
+        <main className={clsx(styles.main, bodyFont.className, "container")}>
+          <Image
+            src={"/images/public-transport.png"}
+            alt={"People waiting for a bus"}
+            width={250}
+            height={160}
+            priority
           />
-        </div>
-        {trips && (
-          <>
-            <p className="text-center mb-4">{`Showing trips departing from ${selectedStop}`}</p>
-            {trips.map((trip, index) => {
-              const status = bookingIds[trip.id] ?? "available";
-              return (
-                <TripCard
-                  {...trip}
-                  status={status}
-                  bookTrip={bookTripWithId}
-                  key={`${trip.id}-${index}`}
-                />
-              );
-            })}
-          </>
-        )}
-        {isLoadingTrips && <Spinner animation="border" role="status" />}
-      </main>
+          <h1 className={clsx(headingFont.className, styles.heading)}>
+            Trip planner
+          </h1>
+          <div className="mb-3">
+            <Dropdown
+              placeholder="Select your departure stop"
+              listItems={stops}
+              selectedItem={selectedStop}
+              onSelect={setSelectedStop}
+              id={"stops"}
+              label={"Departure stop:"}
+            />
+          </div>
+          {trips && (
+            <>
+              <p className="text-center mb-4">{`Showing trips departing from ${selectedStop}`}</p>
+              {trips.map((trip, index) => {
+                const status = bookingIds[trip.id] ?? "available";
+                return (
+                  <TripCard
+                    {...trip}
+                    status={status}
+                    bookTrip={bookTripWithId}
+                    key={`${trip.id}-${index}`}
+                  />
+                );
+              })}
+            </>
+          )}
+          {isLoadingTrips && <Spinner animation="border" role="status" />}
+        </main>
+      </Page>
     </>
   );
 };
 
-Page.getInitialProps = async () => {
+Home.getInitialProps = async () => {
   const stops = await getAllStops();
   return { stops };
 };
 
-export default Page;
+export default Home;

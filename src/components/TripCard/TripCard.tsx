@@ -33,8 +33,14 @@ export const TripCard = ({
     <>
       <p className={styles.label}>{label}</p>
       <div className={styles.time}>
-        <span>{date}</span>
-        <span>{time}</span>
+        <span>
+          <i className="bi bi-calendar3" />
+          <span className="m-2">{date}</span>
+        </span>
+        <span>
+          <i className="bi bi-clock" />
+          <span className="m-2">{time}</span>
+        </span>
       </div>
     </>
   );

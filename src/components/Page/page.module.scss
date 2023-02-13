@@ -1,0 +1,32 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.container {
+  height: 100vh;
+  position: fixed;
+  width: 100vw;
+}
+
+.left {
+  display: none;
+  @media only screen and (min-width: 576px) {
+    display: unset;
+    position: absolute;
+    top: 180px;
+    left: -360px;
+  }
+}
+
+.right {
+  position: absolute;
+  top: -330px;
+  right: -250px;
+}
+
+.right-bottom {
+  position: absolute;
+  top: 430px;
+  right: -310px;
+}
