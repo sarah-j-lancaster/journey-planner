@@ -1,7 +1,7 @@
 import { Trip } from "@/services/api/trips";
 import styles from "./trip-card.module.scss";
 import Button from "react-bootstrap/Button";
-import { formatDateString } from "@/utils/utils";
+import { formatDate } from "@/utils/utils";
 import clsx from "clsx";
 
 interface TripCardProps extends Trip {
@@ -26,8 +26,8 @@ export const TripCard = ({
   bookTrip,
 }: TripCardProps) => {
   const isDisabled = status === "booked" || status === "booking";
-  const formattedArrival = formatDateString(arrivalTime);
-  const formattedDeparture = formatDateString(departureTime);
+  const formattedArrival = formatDate(arrivalTime);
+  const formattedDeparture = formatDate(departureTime);
 
   const timeSection = (label: string, date: string, time: string) => (
     <>

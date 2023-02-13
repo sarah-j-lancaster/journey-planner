@@ -7,7 +7,7 @@ type dateTime = {
   date: string;
   time: string;
 };
-export const formatDateString = (rawDate: string): dateTime => {
+export const formatDate = (rawDate: string): dateTime => {
   const dateObj = new Date(rawDate);
   const date = dateObj.toLocaleDateString("fr-FR");
   const time = dateObj.toLocaleTimeString("fr-FR", { timeStyle: "short" });

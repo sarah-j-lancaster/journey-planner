@@ -85,17 +85,20 @@ const Home: NextPage<HomeProps> = ({ stops }) => {
           {trips && (
             <>
               <p className="text-center mb-4 mb-lg-5">{`Showing trips departing from ${selectedStop}`}</p>
-              {trips.map((trip, index) => {
-                const status = bookingIds[trip.id] ?? "available";
-                return (
-                  <TripCard
-                    {...trip}
-                    status={status}
-                    bookTrip={bookTripWithId}
-                    key={`${trip.id}-${index}`}
-                  />
-                );
-              })}
+              <ul className="list-unstyled">
+                {trips.map((trip, index) => {
+                  const status = bookingIds[trip.id] ?? "available";
+                  return (
+                    <li key={`${trip.id}-${index}`}>
+                      <TripCard
+                        {...trip}
+                        status={status}
+                        bookTrip={bookTripWithId}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
             </>
           )}
           {isLoadingTrips && (
