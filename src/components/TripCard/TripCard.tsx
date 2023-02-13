@@ -2,6 +2,7 @@ import { Trip } from "@/services/api/trips";
 import styles from "./trip-card.module.scss";
 import Button from "react-bootstrap/Button";
 import { formatDateString } from "@/utils/utils";
+import clsx from "clsx";
 
 interface TripCardProps extends Trip {
   status: "booking" | "booked" | "available" | "error";
@@ -69,7 +70,7 @@ export const TripCard = ({
         <Button
           disabled={isDisabled}
           onClick={() => bookTrip(id)}
-          className={styles.button}
+          className={clsx(styles["btn-blue"], styles.button)}
         >
           {labelMap[status]}
         </Button>

@@ -9,3 +9,28 @@
 .list {
   min-width: 280px;
 }
+
+// Bootstrap override
+.btn-blue {
+  background-color: var(--color-blue);
+  color: white;
+  border: var(--color-blue);
+  &:hover {
+    background-color: var(--color-medium-blue);
+  }
+  &:active {
+    background-color: var(--color-medium-blue) !important;
+  }
+}
+
+.btn-blue + .show {
+  &:active {
+    background-color: var(--color-medium-blue) !important;
+  }
+}
+
+.dropdown-item {
+  &:active {
+    background-color: var(--color-medium-blue);
+  }
+}

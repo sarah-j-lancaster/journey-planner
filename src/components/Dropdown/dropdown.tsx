@@ -11,8 +11,7 @@ type DropdownProps = {
   id: string;
   variant?: string;
   placeholder: string;
-  label?: string;
-  prefix?: string;
+  label: string;
   listItems: string[];
   selectedItem?: string;
   onSelect: (item: string) => void;
@@ -24,20 +23,15 @@ export const Dropdown = ({
   placeholder,
   selectedItem,
   listItems,
-  variant,
-  prefix,
   onSelect,
 }: DropdownProps) => {
   return (
     <>
-      {label && (
-        <label className={clsx(labelFont.className, "pb-2")}>{label}</label>
-      )}
+      <label className={clsx(labelFont.className, "pb-2")}>{label}</label>
       <BootstrapDropdown onSelect={(e) => onSelect(e as string)}>
         <BootstrapDropdown.Toggle
-          variant={variant}
           id={`dropdown-${id}`}
-          className={styles.toggle}
+          className={clsx(styles.toggle, styles["btn-blue"])}
         >
           {selectedItem ? selectedItem : placeholder}
         </BootstrapDropdown.Toggle>
@@ -48,6 +42,7 @@ export const Dropdown = ({
               value={item}
               eventKey={item}
               key={`${id}-${item}`}
+              className={styles["dropdown-item"]}
             >
               {item}
             </BootstrapDropdown.Item>

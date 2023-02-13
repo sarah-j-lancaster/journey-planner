@@ -5,13 +5,14 @@
     "departing arriving"
     "box box";
   column-gap: 16px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   border-bottom: 2px solid var(--color-blue);
   padding-bottom: 8px;
   margin-bottom: 8px;
+  width: 100%;
   @media only screen and (min-width: 576px) {
+    width: auto;
     grid-template-columns: minmax(0, 200px) minmax(0, 200px) minmax(0, 150px);
-
     grid-template-areas:
       "from to box"
       "departing arriving box";
@@ -29,14 +30,10 @@
 
 .to {
   grid-area: to;
-  word-wrap: break-word;
-  word-break: break-all;
 }
 
 .from {
   grid-area: from;
-  word-wrap: break-word;
-  word-break: break-all;
 }
 
 .departing {
@@ -57,8 +54,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 8px;
   @media only screen and (min-width: 576px) {
     justify-content: flex-end;
+    padding-top: 0px;
   }
 }
 
@@ -66,5 +65,23 @@
   width: 100%;
   @media only screen and (min-width: 576px) {
     width: max-content;
+  }
+}
+
+// Bootstrap css override
+.btn-blue {
+  background-color: var(--color-blue);
+  color: white;
+  border: 2px solid var(--color-blue);
+  &:hover {
+    color: white;
+    background-color: var(--color-medium-blue);
+    border: 2px solid var(--color-medium-blue);
+  }
+  &:disabled {
+    background-color: white;
+    border: 2px solid var(--color-orange);
+    color: var(--color-blue);
+    opacity: unset;
   }
 }

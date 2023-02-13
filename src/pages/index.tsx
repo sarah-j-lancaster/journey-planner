@@ -18,31 +18,27 @@ import { TripCard } from "@/components/TripCard/TripCard";
 const headingFont = Shrikhand({ weight: "400", preload: false });
 const bodyFont = Open_Sans({ weight: "400" });
 
-type Props = {
+type PageProps = {
   stops: string[];
 };
 
 type BookedTrips = { [key: string]: "booking" | "booked" | "error" };
 
-const Page: NextPage<Props> = ({ stops }) => {
+const Page: NextPage<PageProps> = ({ stops }) => {
   const [selectedStop, setSelectedStop] = useState<string | undefined>();
   const [trips, setTrips] = useState<Trip[] | undefined>();
-
-  const [isLoading, setLoading] = useState<boolean>(false);
-
+  const [isLoadingTrips, setLoadingTrips] = useState<boolean>(false);
   const [bookingIds, setBookingIds] = useState<BookedTrips>({});
 
-  // style
-  // filter
   useEffect(() => {
     if (selectedStop) {
       const fetchTrips = async () => {
-        setLoading(true);
+        setLoadingTrips(true);
         setTrips(undefined);
 
         const trips = await getAllTripsForStop(selectedStop);
         setTrips(trips);
-        setLoading(false);
+        setLoadingTrips(false);
       };
       fetchTrips();
     }
@@ -70,9 +66,9 @@ const Page: NextPage<Props> = ({ stops }) => {
           height={160}
           priority
         />
-        <h2 className={clsx(headingFont.className, styles.heading)}>
+        <h1 className={clsx(headingFont.className, styles.heading)}>
           Trip planner
-        </h2>
+        </h1>
         <div className="mb-3">
           <Dropdown
             placeholder="Select your departure stop"
@@ -86,15 +82,20 @@ const Page: NextPage<Props> = ({ stops }) => {
         {trips && (
           <>
             <p className="text-center mb-4">{`Showing trips departing from ${selectedStop}`}</p>
-            {trips.map((trip) => {
+            {trips.map((trip, index) => {
               const status = bookingIds[trip.id] ?? "available";
               return (
-                <TripCard {...trip} status={status} bookTrip={bookTripWithId} />
+                <TripCard
+                  {...trip}
+                  status={status}
+                  bookTrip={bookTripWithId}
+                  key={`${trip.id}-${index}`}
+                />
               );
             })}
           </>
         )}
-        {isLoading && <Spinner animation="border" role="status" />}
+        {isLoadingTrips && <Spinner animation="border" role="status" />}
       </main>
     </>
   );
